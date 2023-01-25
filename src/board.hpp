@@ -1,15 +1,15 @@
 #pragma once //WTF?
+#include <ncurses.h>
+#include "particle.hpp"
 
 class Board {
 public:
+	Board() {
+		construct(0, 0);
+	}
+	
 	Board(int height, int width) {
-		int x_max, y_max;
-		getmaxyx(stdscr, y_max, x_max);
-
-		board_win = 
-			newwin(height, width,
-					y_max/2 - height/2,
-					x_max/2 - width/2);
+		construct(height, width);
 	}
 
 	void initialize() {
@@ -17,11 +17,15 @@ public:
 		refresh();
 	}
 
+	void add(Particle particle) {
+		add_at(particle.get_y(), particle.get_x(), particle.get_icon());
+	}
+
 	void add_at(int y, int x, chtype ch) {
 		mvwaddch(board_win, y, x, ch);
 	}
 
-	chtype getInput() {
+	chtype get_input() {
 		return wgetch(board_win);
 	}
 
@@ -41,5 +45,14 @@ public:
 
 private:
 	WINDOW *board_win;
-	int height, width;
+
+	void construct(int height, int width) {
+		int x_max, y_max;
+		getmaxyx(stdscr, y_max, x_max);
+
+		board_win = 
+			newwin(height, width,
+					y_max/2 - height/2,
+					x_max/2 - width/2);
+	}
 };
