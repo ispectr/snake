@@ -1,5 +1,8 @@
-#pragma once //WTF?
+#pragma once
 #include <ncurses.h>
+#include <time.h>
+#include <stdlib.h>
+
 #include "particle.hpp"
 
 class Board {
@@ -22,7 +25,7 @@ public:
 	}
 
 	void add_at(int y, int x, chtype ch) {
-		mvwaddch(board_win, y, x, ch);
+		mvwaddch(board_win, y, x, ch); 
 	}
 
 	chtype get_input() {
@@ -31,6 +34,10 @@ public:
 
 	void add_border() {
 		box(board_win, 0, 0);
+	}
+
+	void next_empty(int &y, int &x) {
+		while(mvwinch(board_win, y = rand() % height, x = rand() % width) != ' ');
 	}
 
 	void clear() {
@@ -44,11 +51,15 @@ public:
 
 
 private:
+	int height, width;
 	WINDOW *board_win;
 
 	void construct(int height, int width) {
+		this->height = height;
+		this->width = width;
 		int x_max, y_max;
 		getmaxyx(stdscr, y_max, x_max);
+		srand(time(NULL));
 
 		board_win = 
 			newwin(height, width,

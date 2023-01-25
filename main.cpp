@@ -1,4 +1,5 @@
 #include <ncurses.h>
+
 #include "src/board.hpp"
 #include "src/snake_game.hpp"
 #include "src/particle.hpp"

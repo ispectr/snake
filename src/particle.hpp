@@ -1,4 +1,4 @@
-#pragma once //WTF?
+#pragma once
 
 class Particle {
 public:
