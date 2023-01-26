@@ -11,11 +11,14 @@ int main(int argc, char **argv) {
 	initscr();
 	refresh();
 	noecho();
+	curs_set(0);
 	
 	SnakeGame game(ROWS, COLS);
-	
+	chtype input;	
+	timeout(500);
 	while(! game.is_over()) {
-		game.process_input();
+		input = getch();
+		game.process_input(input);
 		game.update_state();
 		game.redraw();
 	}

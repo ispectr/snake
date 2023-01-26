@@ -7,31 +7,81 @@
 #include "particle.hpp"
 #include "apple.hpp"
 #include "empty.hpp"
+#include "snake.hpp"
 
 class SnakeGame {
 public:
 	SnakeGame(int height, int width) {
 		board = Board(height, width);
-		board.initialize();
-		game_over = false;
-		srand(time(NULL));
+		initialize();
 	}
 
-	void process_input() {
-		chtype input = board.get_input();
+	~SnakeGame() {
+		delete apple;
+	}
+
+	void initialize() {
+		apple = NULL;
+
+		board.initialize();
+		game_over = false;
+		snake.set_direction(DOWN);
+
+		SnakePiece next = SnakePiece(1, 1);
+		board.add(next);
+		snake.add_piece(next);
+
+		next = snake.next_head();
+		board.add(next);
+		snake.add_piece(next);
+
+		next = snake.next_head();
+		board.add(next);
+		snake.add_piece(next);
+	
+	}
+
+	void process_input(int input) {
+		switch (input) {
+		case KEY_UP:
+		case 'w':
+			snake.set_direction(UP);
+			break;
+		case KEY_DOWN:
+		case 's':
+			snake.set_direction(DOWN);
+			break;
+		case KEY_RIGHT:
+		case 'd':
+			snake.set_direction(RIGHT);
+			break;
+		case KEY_LEFT:
+		case 'a':
+			snake.set_direction(LEFT);
+			break;
+		default:
+			break;
+		}
 	}
 
 	void update_state() {
-		int x, y;
-		board.next_empty(y, x);
+		if(apple == NULL) {
+			int y, x;
+			board.next_empty(y, x);
+			apple = new Apple(y, x);
+			board.add(*apple);
+		}
 
-		if(apple != NULL) 
-			board.add(Empty(apple->get_y(), apple->get_x()));
+		SnakePiece next = snake.next_head();
+		if(apple->get_x() != next.get_x() || apple->get_y() != next.get_y()) {
+			int empty_row = snake.tail().get_y();
+			int empty_col = snake.tail().get_x();
+			board.add(Empty(empty_row, empty_col));
+			snake.remove_piece();
+		}
 
-		apple = new Apple(y, x);
-		board.add(*apple);
-		board.add(Particle(3, 5, '@'));
-		board.refresh();
+		board.add(next);
+		snake.add_piece(next);
 	}
 
 	void redraw() {
@@ -44,6 +94,7 @@ public:
 
 private:
 	Apple *apple;
+	Snake snake;
 	Board board;
 	bool game_over;
 };
