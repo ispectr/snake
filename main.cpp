@@ -26,9 +26,9 @@ int main(int argc, char **argv) {
 		game.redraw();
 	}
 
-	printf("Game over! Your score: %d", game.get_score());
 	getch();
 	endwin();
 
+	printf("Game over! Your last score: %d points!\n", game.get_score());
 	return 0;
 }
