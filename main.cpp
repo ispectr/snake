@@ -12,6 +12,7 @@ int main(int argc, char **argv) {
 	refresh();
 	noecho();
 	curs_set(0);
+	keypad(stdscr, true);
 	
 	SnakeGame game(ROWS, COLS);
 	chtype input;	

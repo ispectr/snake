@@ -1,4 +1,4 @@
 all: main
 
-main: main.cpp src/board.hpp src/snake_game.hpp
+main: main.cpp src/*
 	g++ main.cpp -lncurses -o main
