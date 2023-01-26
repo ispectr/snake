@@ -8,11 +8,15 @@
 #include "apple.hpp"
 #include "empty.hpp"
 #include "snake.hpp"
+#include "scoreboard.hpp"
 
 class SnakeGame {
 public:
 	SnakeGame(int height, int width) {
 		board = Board(height, width);
+		int sb_row = board.get_start_row() + height;
+		int sb_col = board.get_start_col();
+		scoreboard = Scoreboard(width, sb_row, sb_col);
 		initialize();
 	}
 
@@ -22,11 +26,14 @@ public:
 
 	void initialize() {
 		apple = NULL;
+		score = 0;
+		game_over = false;
 
 		board.initialize();
-		game_over = false;
+		scoreboard.initialize(score);
 		snake.set_direction(DOWN);
-
+		
+		// spawn snake
 		handle_next_piece(SnakePiece(1, 1));
 		handle_next_piece(snake.next_head());
 		handle_next_piece(snake.next_head());
@@ -70,16 +77,23 @@ public:
 
 	void redraw() {
 		board.refresh();
+		scoreboard.refresh();
 	}
 
 	bool is_over() {
 		return game_over;
 	}
 
+	int get_socre() {
+		return score;
+	}
+
 private:
 	Apple *apple;
 	Snake snake;
 	Board board;
+	Scoreboard scoreboard;
+	int score;
 	bool game_over;
 
 	void create_apple() {
@@ -116,6 +130,8 @@ private:
 	}
 	
 	void destroy_apple() {
+		score += 100;
+		scoreboard.update_score(score);
 		delete apple;
 		apple = NULL;
 	}

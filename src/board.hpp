@@ -54,10 +54,18 @@ public:
 		wrefresh(board_win);
 	}
 
+	int get_start_row() {
+		return start_row;
+	}
+
+	int get_start_col() {
+		return start_col;
+	}
 
 private:
-	int height, width;
+	int height, width, start_row, start_col;
 	WINDOW *board_win;
+
 
 	void construct(int height, int width) {
 		this->height = height;
@@ -65,10 +73,10 @@ private:
 		int x_max, y_max;
 		getmaxyx(stdscr, y_max, x_max);
 		srand(time(NULL));
+		start_row = y_max / 2 - height / 2;
+		start_col = x_max / 2 -  width / 2;
 
-		board_win = 
-			newwin(height, width,
-					y_max/2 - height/2,
-					x_max/2 - width/2);
+
+		board_win = newwin(height, width, start_row, start_col);
 	}
 };

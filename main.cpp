@@ -10,13 +10,15 @@
 int main(int argc, char **argv) {
 	initscr();
 	refresh();
+
 	noecho();
 	curs_set(0);
 	keypad(stdscr, true);
-	
-	SnakeGame game(ROWS, COLS);
+	timeout(200);
+
 	chtype input;	
-	timeout(500);
+	SnakeGame game(ROWS, COLS);
+
 	while(! game.is_over()) {
 		input = getch();
 		game.process_input(input);
@@ -24,6 +26,7 @@ int main(int argc, char **argv) {
 		game.redraw();
 	}
 
+	printf("Game over!");
 	getch();
 	endwin();
 
