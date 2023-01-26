@@ -90,14 +90,25 @@ private:
 	}
 	
 	void handle_next_piece(SnakePiece next) {
-		if(apple != NULL && (apple->get_x() != next.get_x() || apple->get_y() != next.get_y())) {
-			int empty_row = snake.tail().get_y();
-			int empty_col = snake.tail().get_x();
-			board.add(Empty(empty_row, empty_col));
-			snake.remove_piece();
-		} 
-		else {
-			destroy_apple();
+		if(apple != NULL) {
+			switch(board.get_char_at(next.get_y(), next.get_x())) {
+			case 'A':
+				destroy_apple();
+				break;
+
+			case ' ': {
+				int empty_row = snake.tail().get_y();
+				int empty_col = snake.tail().get_x();
+				board.add(Empty(empty_row, empty_col));
+				snake.remove_piece();
+				break;
+			}
+
+			default:
+				game_over = true;
+				break;
+
+			}
 		}
 
 		board.add(next);

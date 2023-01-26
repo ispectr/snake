@@ -41,6 +41,10 @@ public:
 		while(mvwinch(board_win, y = rand() % height, x = 1 + 2 * (rand() % (width / 2))) != ' ');
 	}
 
+	chtype get_char_at(int y, int x) {
+		return mvwinch(board_win, y, x);
+	}
+
 	void clear() {
 		wclear(board_win);
 		add_border();
