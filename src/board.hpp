@@ -26,6 +26,7 @@ public:
 
 	void add_at(int y, int x, chtype ch) {
 		mvwaddch(board_win, y, x, ch); 
+		mvwaddch(board_win, y, x+1, ch); 
 	}
 
 	chtype get_input() {
@@ -37,7 +38,7 @@ public:
 	}
 
 	void next_empty(int &y, int &x) {
-		while(mvwinch(board_win, y = rand() % height, x = rand() % width) != ' ');
+		while(mvwinch(board_win, y = rand() % height, x = 1 + 2 * (rand() % (width / 2))) != ' ');
 	}
 
 	void clear() {

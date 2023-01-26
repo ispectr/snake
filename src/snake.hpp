@@ -14,13 +14,13 @@ class SnakePiece : public Particle {
 public:
 	SnakePiece() {
 		this->x = this->y = 0;
-		this->icon = '#';
+		this->icon = ACS_CKBOARD;
 	}
 
 	SnakePiece(int y, int x) {
 		this->x = x;
 		this->y = y;
-		this->icon = '#';
+		this->icon = ACS_CKBOARD;
 	}
 };
 
@@ -67,8 +67,10 @@ public:
 			break;
 		case LEFT:
 			col--;
+			col--;
 			break;
 		case RIGHT:
+			col++;
 			col++;
 			break;
 		}

@@ -27,18 +27,15 @@ public:
 		game_over = false;
 		snake.set_direction(DOWN);
 
-		SnakePiece next = SnakePiece(1, 1);
-		board.add(next);
-		snake.add_piece(next);
+		handle_next_piece(SnakePiece(1, 1));
+		handle_next_piece(snake.next_head());
+		handle_next_piece(snake.next_head());
+		snake.set_direction(RIGHT);
+		handle_next_piece(snake.next_head());
 
-		next = snake.next_head();
-		board.add(next);
-		snake.add_piece(next);
-
-		next = snake.next_head();
-		board.add(next);
-		snake.add_piece(next);
-	
+		if(apple == NULL) {
+			create_apple();
+		}	
 	}
 
 	void process_input(int input) {
@@ -65,23 +62,10 @@ public:
 	}
 
 	void update_state() {
-		if(apple == NULL) {
-			int y, x;
-			board.next_empty(y, x);
-			apple = new Apple(y, x);
-			board.add(*apple);
+		handle_next_piece(snake.next_head());
+		if (apple == NULL) {
+			create_apple();
 		}
-
-		SnakePiece next = snake.next_head();
-		if(apple->get_x() != next.get_x() || apple->get_y() != next.get_y()) {
-			int empty_row = snake.tail().get_y();
-			int empty_col = snake.tail().get_x();
-			board.add(Empty(empty_row, empty_col));
-			snake.remove_piece();
-		}
-
-		board.add(next);
-		snake.add_piece(next);
 	}
 
 	void redraw() {
@@ -97,4 +81,31 @@ private:
 	Snake snake;
 	Board board;
 	bool game_over;
+
+	void create_apple() {
+		int y, x;
+		board.next_empty(y, x);
+		apple = new Apple(y, x);
+		board.add(*apple);
+	}
+	
+	void handle_next_piece(SnakePiece next) {
+		if(apple != NULL && (apple->get_x() != next.get_x() || apple->get_y() != next.get_y())) {
+			int empty_row = snake.tail().get_y();
+			int empty_col = snake.tail().get_x();
+			board.add(Empty(empty_row, empty_col));
+			snake.remove_piece();
+		} 
+		else {
+			destroy_apple();
+		}
+
+		board.add(next);
+		snake.add_piece(next);
+	}
+	
+	void destroy_apple() {
+		delete apple;
+		apple = NULL;
+	}
 };
