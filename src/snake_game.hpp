@@ -84,7 +84,7 @@ public:
 		return game_over;
 	}
 
-	int get_socre() {
+	int get_score() {
 		return score;
 	}
 
