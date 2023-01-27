@@ -1,4 +1,5 @@
 all: main
 
 main: main.cpp src/*
-	g++ main.cpp -lncurses -o main
+	mkdir build
+	g++ main.cpp -lncurses -o build/snake
