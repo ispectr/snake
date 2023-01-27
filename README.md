@@ -1,5 +1,5 @@
 # snake game
-![Alt text](./screenshots/1.png?raw=true "Title")
+<img src="./screenshots/1.png" alt="drawing" width="200"/>
 
 ## build and run
 `make run`
