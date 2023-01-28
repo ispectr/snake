@@ -9,7 +9,7 @@
 <pre>
 cd snake
 make
-<pre/>
+</pre>
 
 ### run
 `./build/snake`
