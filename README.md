@@ -1,5 +1,5 @@
 # snake game
-<img src="./screenshots/1.png" alt="drawing" width="200"/>
+<img src="./screenshots/1.png" alt="drawing" width="300"/>
 
 ## build and run
 ### Clone repo
