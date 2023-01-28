@@ -47,22 +47,26 @@ public:
 
 	void process_input(int input) {
 		switch (input) {
-		case KEY_UP:
-		case 'w':
+		case KEY_UP: case 'w': 
+		case 'k':
 			snake.set_direction(UP);
 			break;
-		case KEY_DOWN:
-		case 's':
+
+		case KEY_DOWN: case 's': 
+		case 'j':
 			snake.set_direction(DOWN);
 			break;
-		case KEY_RIGHT:
-		case 'd':
+
+		case KEY_RIGHT: case 'd': 
+		case 'l':
 			snake.set_direction(RIGHT);
 			break;
-		case KEY_LEFT:
-		case 'a':
+
+		case KEY_LEFT: case 'a': 
+		case 'h':
 			snake.set_direction(LEFT);
 			break;
+
 		default:
 			break;
 		}

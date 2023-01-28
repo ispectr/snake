@@ -2,10 +2,14 @@
 <img src="./screenshots/1.png" alt="drawing" width="200"/>
 
 ## build and run
-`make run`
+### Clone repo
+`git clone "https://github.com/mr3iscuit/snake"`
 
-## build
-`make`
+### build
+<pre>
+cd snake
+make
+<pre/>
 
-## run
+### run
 `./build/snake`

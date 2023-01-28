@@ -13,8 +13,8 @@ int main(int argc, char **argv) {
 
 	noecho();
 	curs_set(0);
-	keypad(stdscr, true);
-	timeout(200);
+	//keypad(stdscr, true);
+	timeout(300);
 
 	chtype input;	
 	SnakeGame game(ROWS, COLS);
